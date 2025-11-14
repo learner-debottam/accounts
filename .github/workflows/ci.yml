@@ -1,5 +1,5 @@
 name: Accounts Microservice Workflow
-on: push
+on: [push,workflow_dispatch]
 jobs:
   build:
     name: Build and Test Accounts Microservice
