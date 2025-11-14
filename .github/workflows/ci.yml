@@ -1,0 +1,32 @@
+name: Accounts Microservice Workflow
+on: push
+jobs:
+  build:
+    name: Build and Test Accounts Microservice
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the code from the repository
+      - name: Checkout the code from the accounts repo
+        uses: actions/checkou@v3
+      # Step 2: Setup JSD Version 17 to build, run and test the accounts microservice
+      - name: Setup JDK 17
+        uses: actions/setup-java@v3
+        with:
+          distribution: temurin
+          java-version: 17
+    # Step 3: Cache Maven dependencies (optional, speeds up builds)
+      - name: Cache Maven packages
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+      # Step 4: Build with maven
+      - name: Build with maven
+        run: mvn clean install --no-transfer-progress
+      # Step 5: Run unit tests
+      - name: Run unit tests
+      - run: mvn test
