@@ -30,3 +30,9 @@ jobs:
       # Step 5: Run unit tests
       - name: Run unit tests
         run: mvn test
+  second_job:
+    name: Second Job
+    runs-on: ubuntu-latest
+    steps:
+      - name: Step 1
+        run: echo "Hello Second Job"
